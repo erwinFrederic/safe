@@ -17,6 +17,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::factory()->create(
+            [
+                'username'=>'adminUser',
+                'email'=>'admin@example.com',
+                'role_id'=>2
+            ]
+        );
         User::factory()->count(30)->create(
             [
                 'role_id'=>1,

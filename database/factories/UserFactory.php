@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'phone_number' => $this->faker->unique()->phoneNumber,
             'blood_type' => $this->faker->randomElement(['A', 'B', 'AB', 'O']),
-            'hospital' => json_encode(['name' => $this->faker->company, 'address' => $this->faker->address]),
+            'hospital' => json_encode(['name' => $this->faker->company, 'address' => $this->faker->address, 'number'=> $this->faker->phoneNumber]),
             'photo' => $this->faker->imageUrl(),
             'password' => Hash::make('password'), // Default password
         ];
