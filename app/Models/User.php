@@ -18,8 +18,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
+        'phone_number',
+        'blood_type',
+        'hospital',
+        'photo',
         'password',
+        'role_id',
     ];
 
     /**
@@ -40,8 +46,28 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
+            'hospital' => 'array',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function emergencyContacts()
+    {
+        return $this->hasMany(EmergencyContact::class);
+    }
+
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class);
+    }
+
+    public function accidents()
+    {
+        return $this->belongsToMany(Accident::class, 'accident_user');
     }
 }

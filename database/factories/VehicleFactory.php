@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,11 @@ class VehicleFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::inRandomOrder()->first()->id,
+            'brand' => $this->faker->company,
+            'model' => $this->faker->word,
+            'color' => $this->faker->safeColorName,
+            'license' => $this->faker->bothify('??-###-??'),
         ];
     }
 }

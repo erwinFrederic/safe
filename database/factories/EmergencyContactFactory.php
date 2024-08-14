@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,13 @@ class EmergencyContactFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::inRandomOrder()->first()->id,
+            'name' => $this->faker->name,
+            'relation' => $this->faker->word,
+            'profesional_situation' => $this->faker->jobTitle,
+            'phone_number_1' => $this->faker->phoneNumber,
+            'phone_number_2' => $this->faker->phoneNumber,
+            'phone_number_3' => $this->faker->phoneNumber,
         ];
     }
 }
