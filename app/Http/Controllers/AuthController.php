@@ -22,6 +22,7 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
+            'role_id'=>$request->role_id,
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
@@ -31,7 +32,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['message' => 'Registration successful', 'token' => $token], 201);
+        return response()->json(['message' => 'Registration successful', 'token' => $token], 200);
     }
 
     // Connexion

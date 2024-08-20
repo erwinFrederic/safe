@@ -2,3 +2,5 @@ php artisan storage:link
 php artisan install:api
 composer require mongodb/mongodb --ignore-platform-reqs
 composer require jenssegers/mongodb --ignore-platform-reqs
+composer require laravel-lang/lang
+
