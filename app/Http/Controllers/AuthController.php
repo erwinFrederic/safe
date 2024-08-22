@@ -22,7 +22,7 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
-            'role_id'=>$request->role_id,
+            'role_id'=>1,
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
