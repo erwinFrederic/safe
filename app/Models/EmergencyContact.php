@@ -11,7 +11,7 @@ class EmergencyContact extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'relation',
+        'relationship',
         'profesional_situation',
         'phone_number_1',
         'phone_number_2',

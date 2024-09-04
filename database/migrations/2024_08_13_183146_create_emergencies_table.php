@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
-            $table->float('longitude');
-            $table->float('latitude');
             $table->string('phone_number_1');
             $table->string('phone_number_2')->nullable();
             $table->string('phone_number_3')->nullable();

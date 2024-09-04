@@ -25,14 +25,22 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
-            'username' => $this->faker->userName,
-            'email' => $this->faker->unique()->safeEmail,
-            'phone_number' => $this->faker->unique()->phoneNumber,
-            'blood_type' => $this->faker->randomElement(['A', 'B', 'AB', 'O']),
-            'hospital' => json_encode(['name' => $this->faker->company, 'address' => $this->faker->address, 'number'=> $this->faker->phoneNumber]),
-            'photo' => $this->faker->imageUrl(),
-            'password' => Hash::make('password'), // Default password
+            'name' => $this->faker->name(),
+            'username' => $this->faker->unique()->userName(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'phone_number' => $this->faker->unique()->phoneNumber(),
+            'blood_type' => $this->faker->optional()->randomElement(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']),
+            'sex' => $this->faker->randomElement(['male', 'female']),
+            'birth_date' => $this->faker->optional()->dateTimeBetween('-80 years', '-18 years'),
+            'hospital' => json_encode([
+                'name' => $this->faker->company(),
+                'address' => $this->faker->address(),
+                'phone' => $this->faker->phoneNumber(),
+            ]),
+            'photo' => $this->faker->optional()->imageUrl(),
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'), // Password sécurisé
+            'remember_token' => Str::random(10),
         ];
     }
 

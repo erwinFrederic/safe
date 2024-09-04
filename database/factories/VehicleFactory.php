@@ -23,6 +23,7 @@ class VehicleFactory extends Factory
             'model' => $this->faker->word,
             'color' => $this->faker->safeColorName,
             'license' => $this->faker->bothify('??-###-??'),
+            'places'=>$this->faker->numberBetween(2,50)
         ];
     }
 }

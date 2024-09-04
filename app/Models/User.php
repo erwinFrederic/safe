@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -18,15 +19,18 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'role_id',
         'name',
         'username',
         'email',
         'phone_number',
         'blood_type',
+        'sex',
+        'birth_date',
         'hospital',
         'photo',
+        'email_verified_at',
         'password',
-        'role_id',
     ];
 
     /**
@@ -50,6 +54,7 @@ class User extends Authenticatable
             'hospital' => 'array',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'birth_date' => 'datetime',
         ];
     }
     public function role()
@@ -70,5 +75,10 @@ class User extends Authenticatable
     public function accidents()
     {
         return $this->belongsToMany(Accident::class, 'accident_user');
+    }
+    public function getBirthDateAttribute($value)
+    {
+        // Utilisez Carbon pour formater la date
+        return Carbon::parse($value)->format('d-m-Y'); // Format par exemple : '01/01/1980'
     }
 }

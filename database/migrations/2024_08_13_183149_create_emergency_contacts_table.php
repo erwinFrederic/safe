@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('name');
-            $table->string('relation');
+            $table->string('relationship');
             $table->string('profesional_situation');
             $table->string('phone_number_1');
             $table->string('phone_number_2')->nullable();

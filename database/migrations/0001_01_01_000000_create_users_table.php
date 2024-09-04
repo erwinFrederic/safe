@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('phone_number')->unique();
             $table->string('blood_type')->nullable();
+            $table->string('sex');
+            $table->timestamp('birth_date')->nullable();
             $table->json('hospital')->nullable();
             $table->string('photo')->nullable();
             $table->timestamp('email_verified_at')->nullable();

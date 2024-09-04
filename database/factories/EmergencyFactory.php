@@ -19,8 +19,6 @@ class EmergencyFactory extends Factory
         return [
             'name' => $this->faker->company,
             'address' => $this->faker->address,
-            'longitude' => $this->faker->longitude,
-            'latitude' => $this->faker->latitude,
             'phone_number_1' => $this->faker->phoneNumber,
             'phone_number_2' => $this->faker->phoneNumber,
             'phone_number_3' => $this->faker->phoneNumber,

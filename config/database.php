@@ -96,19 +96,6 @@ return [
             'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
-
-        'mongodb' => [
-            'driver'   => 'mongodb',
-            'host'     => env('MONGODB_HOST', 'localhost'),
-            'port'     => env('MONGODB_PORT', 27017),
-            'database' => env('MONGODB_DATABASE'),
-            'username' => env('MONGODB_USERNAME'),
-            'password' => env('MONGODB_PASSWORD'),
-            'options'  => [
-                'authSource' => 'admin', // Si vous utilisez l'authentification sur une autre base de données
-            ],
-        ],
-
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DB_URL'),
@@ -123,6 +110,33 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
+        'redis' => [
+
+            'client' => env('REDIS_CLIENT', 'phpredis'), // Utiliser 'predis' si vous utilisez Predis
+
+            'options' => [
+                'cluster' => env('REDIS_CLUSTER', 'redis'),
+                'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
+            ],
+
+            'default' => [
+                'url' => env('REDIS_URL'),
+                'host' => env('REDIS_HOST', '127.0.0.1'),
+                'password' => env('REDIS_PASSWORD', null),
+                'port' => env('REDIS_PORT', '6379'),
+                'database' => env('REDIS_DB', '0'),
+            ],
+
+            'cache' => [
+                'url' => env('REDIS_URL'),
+                'host' => env('REDIS_HOST', '127.0.0.1'),
+                'password' => env('REDIS_PASSWORD', null),
+                'port' => env('REDIS_PORT', '6379'),
+                'database' => env('REDIS_CACHE_DB', '1'),
+            ],
+
+        ],
+
 
     ],
 
