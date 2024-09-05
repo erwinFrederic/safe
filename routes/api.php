@@ -16,6 +16,7 @@ Route::post('/send_verification_sms', [AuthController::class, 'send_verification
 Route::post('/verify_code', [AuthController::class, 'verify_code']);
 Route::middleware('auth:sanctum')->group(function (){
     Route::get('/actualise', [AuthController::class,'actualise']);
+    Route::put('/update_informations', [UserController::class,'update_informations']);
     Route::post('/update_photo', [UserController::class,'update_photo']);
     Route::get('/delete_photo', [UserController::class,'delete_photo']);
 });

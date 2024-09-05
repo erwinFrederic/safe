@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'phone_number' => $this->faker->unique()->phoneNumber(),
             'blood_type' => $this->faker->optional()->randomElement(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']),
-            'sex' => $this->faker->randomElement(['male', 'female']),
+            'sex' => $this->faker->randomElement(['Homme', 'Femme']),
             'birth_date' => $this->faker->optional()->dateTimeBetween('-80 years', '-18 years'),
             'hospital' => json_encode([
                 'name' => $this->faker->company(),

@@ -16,11 +16,9 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'blood_type' => 'required|string|max:3',
         ]);
         $user->name = $validatedData['name'];
         $user->username = $validatedData['username'];
-        $user->blood_type = $validatedData['blood_type'];
         $user->save();
         return response()->json(['message' => 'Success'], 200);
     }
