@@ -86,6 +86,15 @@ class AuthController extends Controller
         return response()->json(['message'=> 'phone_number is available'], 200);
     }
 
+    public function email_verify(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        if($user){
+            return response()->json(['message'=> 'Email is already taken'], 400);
+        }
+        return response()->json(['message'=> 'Email is available'], 200);
+    }
+
     public function send_verification_sms(Request $request)
     {
         $verificationCode = rand(100000, 999999);
@@ -104,6 +113,7 @@ class AuthController extends Controller
         $userCode = $request->input('verification_code');
         Log::info(Cache::get('verification_code').' et '.$userCode);
         if ($sentCode == $userCode) {
+            Cache::forget('verification_code');
             return response()->json(['message' => 'Numéro vérifié avec succès'], 200);
         } else {
             return response()->json(['error' => 'Code de vérification incorrect'], 400);
