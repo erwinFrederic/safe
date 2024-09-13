@@ -24,18 +24,22 @@ class DatabaseSeeder extends Seeder
                 'role_id'=>2
             ]
         );
-        User::factory()->count(30)->create(
+        User::factory()->count(10)->create(
             [
                 'role_id'=>1,
             ]
-        );
+        )->each(function($user){
+            Vehicle::factory()->count(10)->create(
+                ['user_id'=>$user->id]
+            );
+        });
         Emergency::factory()->count(10)->create()->each(function (){
             User::factory()->create(
                 ['role_id'=>3]
             );
         });
         EmergencyContact::factory()->count(100)->create();
-        Vehicle::factory()->count(50)->create();
+        Vehicle::factory()->count(10)->create();
         Accident::factory()->count(30)->create();
     }
 }

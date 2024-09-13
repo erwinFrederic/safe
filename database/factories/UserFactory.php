@@ -27,6 +27,7 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'username' => $this->faker->unique()->userName(),
+            'matricule' => $this->faker->unique()->word,
             'email' => $this->faker->unique()->safeEmail(),
             'phone_number' => $this->faker->unique()->phoneNumber(),
             'blood_type' => $this->faker->optional()->randomElement(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']),
@@ -37,7 +38,7 @@ class UserFactory extends Factory
                 'address' => $this->faker->address(),
                 'phone' => $this->faker->phoneNumber(),
             ]),
-            'photo' => $this->faker->optional()->imageUrl(),
+            'photo' => $this->faker->optional()->imageUrl(200, 200, 'people', true),
             'email_verified_at' => now(),
             'password' => bcrypt('password'), // Password sécurisé
             'remember_token' => Str::random(10),

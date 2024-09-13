@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('username');
+            $table->string('matricule')->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('phone_number')->unique();
             $table->string('blood_type')->nullable();
-            $table->string('sex');
+            $table->string('sex')->nullable();
             $table->timestamp('birth_date')->nullable();
             $table->json('hospital')->nullable();
             $table->string('photo')->nullable();

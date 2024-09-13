@@ -12,7 +12,7 @@ class EmergencyContact extends Model
         'user_id',
         'name',
         'relationship',
-        'profesional_situation',
+        'professional_situation',
         'phone_number_1',
         'phone_number_2',
         'phone_number_3',

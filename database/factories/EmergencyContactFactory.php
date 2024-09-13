@@ -21,7 +21,7 @@ class EmergencyContactFactory extends Factory
             'user_id' => User::inRandomOrder()->first()->id,
             'name' => $this->faker->name,
             'relationship' => $this->faker->word,
-            'profesional_situation' => $this->faker->jobTitle,
+            'professional_situation' => $this->faker->jobTitle,
             'phone_number_1' => $this->faker->phoneNumber,
             'phone_number_2' => $this->faker->phoneNumber,
             'phone_number_3' => $this->faker->phoneNumber,

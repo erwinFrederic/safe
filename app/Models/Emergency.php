@@ -22,4 +22,8 @@ class Emergency extends Model
     {
         return $this->hasMany(Accident::class);
     }
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 }

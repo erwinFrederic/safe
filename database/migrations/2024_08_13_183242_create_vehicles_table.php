@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('model');
             $table->string('color');
             $table->string('license');
-            $table->integer('places');
+            $table->integer('places')->nullable();
             $table->timestamps();
         });
     }

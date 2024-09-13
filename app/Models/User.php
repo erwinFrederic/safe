@@ -22,6 +22,7 @@ class User extends Authenticatable
         'role_id',
         'name',
         'username',
+        'matricule',
         'email',
         'phone_number',
         'blood_type',
@@ -80,5 +81,13 @@ class User extends Authenticatable
     {
         // Utilisez Carbon pour formater la date
         return Carbon::parse($value)->format('d-m-Y'); // Format par exemple : '01/01/1980'
+    }
+    public function position()
+    {
+        return $this->belongsTo(Position::class);
+    }
+    public function emergency()
+    {
+        return $this->belongsTo(Emergency::class);
     }
 }

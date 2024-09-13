@@ -14,11 +14,15 @@ class EmergencyFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    protected $model = \App\Models\Emergency::class;
+
+    public function definition()
     {
         return [
             'name' => $this->faker->company,
             'address' => $this->faker->address,
+            'email' => $this->faker->safeEmail,
+            'logo' => $this->faker->imageUrl(200, 200, 'business', true), // URL d'une image de logo
             'phone_number_1' => $this->faker->phoneNumber,
             'phone_number_2' => $this->faker->phoneNumber,
             'phone_number_3' => $this->faker->phoneNumber,

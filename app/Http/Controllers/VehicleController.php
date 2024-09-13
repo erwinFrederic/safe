@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class VehicleController extends Controller
 {
@@ -15,7 +16,7 @@ class VehicleController extends Controller
         $vehicles=$user->vehicles;
         return response()->json($vehicles, 200);
     }
-    public function add_vehicle(Request $request)
+    public function create_vehicle(Request $request)
     {
         /** @var \App\Models\User $user **/
         $user = Auth::user();
@@ -24,13 +25,19 @@ class VehicleController extends Controller
             'model'=>'required|max:255',
             'license'=>'required',
             'color'=>'required|max:255',
+            'places'=>'required|max:255',
         ]);
-        $vehicle = new Vehicle();
-        $vehicle->brand = $request->brand;
-        $vehicle->model = $request->model;
-        $vehicle->license = $request->license;
-        $vehicle->color = $request->color;
-        $user->vehicles()->save($vehicle);
+        Log::info($validatedData);
+        $vehicle=Vehicle::create([
+            'user_id' => $user->id,
+            'model' => $validatedData['model'],
+            'brand' => $validatedData['brand'],
+            'license' => $validatedData['license'],
+            'color' => $validatedData['color'],
+        ]);
+        $vehicle->places=$validatedData['places'];
+        $vehicle->save();
+
         return response()->json(['message'=> 'Success'], 200);
     }
     public function delete_vehicle(Request $request, $id)
@@ -50,11 +57,13 @@ class VehicleController extends Controller
                 'model'=>'required|max:255',
                 'license'=>'required',
                 'color'=>'required|max:255',
+                'places'=>'required|max:255',
             ]);
             $vehicle->brand = $request->brand;
             $vehicle->model = $request->model;
             $vehicle->license = $request->license;
             $vehicle->color = $request->color;
+            $vehicle->places = intval($request->places);
             $vehicle->save();
             return response()->json(['message'=> 'Success'], 200);
         } else {
