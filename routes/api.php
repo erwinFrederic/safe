@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccidentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmergencyContactController;
@@ -47,6 +48,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/create_vehicle','create_vehicle');
         Route::put('/update_vehicle/{id}','update_vehicle');
         Route::delete('/delete_vehicle/{id}','delete_vehicle');
+    });
+    Route::controller(AccidentController::class)->group(function(){
+        Route::post('/launch_alert','launch_alert');
     });
 });
 

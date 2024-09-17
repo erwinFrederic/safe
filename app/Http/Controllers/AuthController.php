@@ -38,8 +38,8 @@ class AuthController extends Controller
     {
         /** @var \App\Models\User $user **/
         $user = Auth::user();
-        $user->load('vehicles','emergencyContacts');
-        return response()->json(['user'=>$user], 200);
+        $user->load('vehicles', 'emergencyContacts');
+        return response()->json(['user' => $user], 200);
     }
     /**
      * @OA\Post(
@@ -88,7 +88,7 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
-            'role_id'=>1,
+            'role_id' => 1,
             'name' => $request->name,
             'username' => $request->username,
             'phone_number' => $request->phone_number,
@@ -99,9 +99,9 @@ class AuthController extends Controller
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
-        $user->load('vehicles','emergencyContacts');
+        $user->load('vehicles', 'emergencyContacts');
 
-        return response()->json(['message' => 'Registration successful','user'=>$user, 'access_token' => $token], 200);
+        return response()->json(['message' => 'Registration successful', 'user' => $user, 'access_token' => $token], 200);
     }
 
     /**
@@ -145,10 +145,21 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             /** @var \App\Models\User $user **/
             $user = Auth::user();
-            $user->load('vehicles','emergencyContacts');
             $token = $user->createToken('auth_token')->plainTextToken;
+            if ($user->role_id == 3) {
+                $return=$user->load('emergency');
+                $return['users']= $user->emergency->users;
+                return response()->json([
+                    'message' => 'Login successful',
+                    'access_token' => $token,
+                    'user' => $return,
+                ], 200);
+            }
+            else{
+                $user->load('vehicles', 'emergencyContacts');
+                return response()->json(['message' => 'Login successful', 'access_token' => $token, 'user' => $user], 200);
+            }
 
-            return response()->json(['message' => 'Login successful', 'access_token' => $token,'user'=>$user], 200);
         }
 
         throw ValidationException::withMessages([
@@ -181,35 +192,35 @@ class AuthController extends Controller
     public function username_verify(Request $request)
     {
         $user = User::where('username', $request->username)->first();
-        if($user){
-            return response()->json(['message'=> 'Username is already taken'], 400);
+        if ($user) {
+            return response()->json(['message' => 'Username is already taken'], 400);
         }
-        return response()->json(['message'=> 'Username is available'], 200);
+        return response()->json(['message' => 'Username is available'], 200);
     }
     public function phone_number_verify(Request $request)
     {
         $user = User::where('phone_number', $request->phone_number)->first();
-        if($user){
-            return response()->json(['message'=> 'phone_number is already taken'], 400);
+        if ($user) {
+            return response()->json(['message' => 'phone_number is already taken'], 400);
         }
-        return response()->json(['message'=> 'phone_number is available'], 200);
+        return response()->json(['message' => 'phone_number is available'], 200);
     }
 
     public function email_verify(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        if($user){
-            return response()->json(['message'=> 'Email is already taken'], 400);
+        if ($user) {
+            return response()->json(['message' => 'Email is already taken'], 400);
         }
-        return response()->json(['message'=> 'Email is available'], 200);
+        return response()->json(['message' => 'Email is available'], 200);
     }
 
     public function send_verification_sms(Request $request)
     {
         $verificationCode = rand(100000, 999999);
         Cache::put('verification_code', $verificationCode);
-        Log::info('Le code de confirmation envoyé au numéro '.$request->phone_number.' est: '. Cache::get('verification_code'));
-        return response()->json(['message' => 'Code de vérification envoyé avec succès'],200);
+        Log::info('Le code de confirmation envoyé au numéro ' . $request->phone_number . ' est: ' . Cache::get('verification_code'));
+        return response()->json(['message' => 'Code de vérification envoyé avec succès'], 200);
     }
 
     public function verify_code(Request $request)
@@ -220,7 +231,7 @@ class AuthController extends Controller
 
         $sentCode = Cache::get('verification_code');
         $userCode = $request->input('verification_code');
-        Log::info(Cache::get('verification_code').' et '.$userCode);
+        Log::info(Cache::get('verification_code') . ' et ' . $userCode);
         if ($sentCode == $userCode) {
             Cache::forget('verification_code');
             return response()->json(['message' => 'Numéro vérifié avec succès'], 200);
@@ -233,7 +244,7 @@ class AuthController extends Controller
     public function logout()
     {
         /** @var \App\Models\User $user **/
-        $user=Auth::user();
+        $user = Auth::user();
         $user->tokens()->delete();
         return response()->json(['message' => 'Logout successful'], 200);
     }

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Emergency;
+use App\Models\Position;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -42,6 +44,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => bcrypt('password'), // Password sécurisé
             'remember_token' => Str::random(10),
+            //'position_id' => Position::inRandomOrder()->first()->id, // Référence aléatoire à une position existante
         ];
     }
 
