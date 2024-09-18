@@ -13,6 +13,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "twilio/sdk": "^8.2",
+        "tymon/jwt-auth": "^2.1",
         "zircote/swagger-php": "^4.10"
     },
     "require-dev": {
