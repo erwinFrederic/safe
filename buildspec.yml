@@ -11,7 +11,7 @@ phases:
     # login to Elastic container registry
     - eval $(aws ecr get-login-password --region us-east-1 --no-include-email)
     - REPOSITORY_URI=024848449962.dkr.ecr.us-east-1.amazonaws.com/safe
-    - IMAGE_TAG=safe-backend
+    - IMAGE_TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION}-v${CODEBUILD_BUILD_NUMBER}
   build:
     commands:
     - echo Build started on `date`
