@@ -17,11 +17,11 @@ phases:
     commands:
     - echo Build started on `date`
     - echo installing composer..
-    # composer install
+    - composer install
     - echo creating .env file..
     - cp .env.example .env
-    # echo generating app key
-    # php artisan key:generate
+    - echo generating app key
+    - php artisan key:generate
     - echo Building the Docker image...
     - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
     - docker tag $REPOSITORY_URI:IMAGE_TAG
