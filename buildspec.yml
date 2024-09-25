@@ -9,7 +9,7 @@ phases:
     - echo Logging in to Amazon ECR....
     - aws --version
     # login to Elastic container registry
-    - eval $(aws ecr get-login-password --region us-east-1 | sed 's|https://||')
+    - aws ecr get-login-password --region us-east-1 --no-include-email | sed 's|https://||'
     - REPOSITORY_URI=024848449962.dkr.ecr.us-east-1.amazonaws.com/safe
     - IMAGE_TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION}-v${CODEBUILD_BUILD_NUMBER}
     - echo $IMAGE_TAG
